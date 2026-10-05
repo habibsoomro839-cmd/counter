@@ -1,0 +1,181 @@
+import streamlit as st
+
+# Page configuration
+st.set_page_config(
+    page_title="Yarn Count Calculator",
+    page_icon="🧵",
+    layout="centered"
+)
+
+# Title
+st.title("🧵 Yarn Count Calculator")
+st.write("Calculate yarn count using Weight (lbs), Length (yards), and Hanks.")
+
+st.divider()
+
+# Information
+st.info(
+    "Yarn Count (Ne) = Length in yards ÷ (Weight in lbs × 840)"
+    "\n\n1 Hank = 840 yards"
+)
+
+# Input section
+st.subheader("Enter Yarn Details")
+
+col1, col2 = st.columns(2)
+
+with col1:
+    weight = st.number_input(
+        "Weight (lbs)",
+        min_value=0.0001,
+        value=1.0,
+        step=0.1
+    )
+
+with col2:
+    length = st.number_input(
+        "Length (yards)",
+        min_value=0.0,
+        value=840.0,
+        step=10.0
+    )
+
+# Calculate button
+if st.button("🧮 Calculate Yarn Count", use_container_width=True):
+
+    if weight <= 0:
+        st.error("Weight must be greater than 0.")
+    elif length <= 0:
+        st.error("Length must be greater than 0.")
+    else:
+
+        # Yarn Count Ne formula
+        yarn_count = length / (weight * 840)
+
+        # Number of hanks
+        hanks = length / 840
+
+        # Weight per hank
+        weight_per_hank = weight / hanks
+
+        st.success("Calculation completed!")
+
+        st.subheader("📊 Results")
+
+        result_col1, result_col2, result_col3 = st.columns(3)
+
+        with result_col1:
+            st.metric(
+                "Yarn Count (Ne)",
+                f"{yarn_count:.2f}"
+            )
+
+        with result_col2:
+            st.metric(
+                "Length (Hanks)",
+                f"{hanks:.2f}"
+            )
+
+        with result_col3:
+            st.metric(
+                "Weight / Hank",
+                f"{weight_per_hank:.4f} lbs"
+            )
+
+        st.divider()
+
+        st.subheader("📐 Calculation")
+
+        st.write(
+            f"**Yarn Count (Ne) = Length ÷ (Weight × 840)**"
+        )
+
+        st.write(
+            f"Ne = {length:,.2f} ÷ ({weight:,.2f} × 840)"
+        )
+
+        st.write(
+            f"### Yarn Count = {yarn_count:.2f} Ne"
+        )
+
+# Conversion section
+st.divider()
+
+st.subheader("🔄 Yarn Length Conversion")
+
+conversion_col1, conversion_col2 = st.columns(2)
+
+with conversion_col1:
+    conversion_yards = st.number_input(
+        "Enter Length (yards)",
+        min_value=0.0,
+        value=840.0,
+        step=10.0,
+        key="conversion_yards"
+    )
+
+with conversion_col2:
+    converted_hanks = conversion_yards / 840
+
+st.metric(
+    "Equivalent Hanks",
+    f"{converted_hanks:.2f} hanks"
+)
+
+st.caption("1 hank = 840 yards")
+
+# Footer
+st.divider()
+streamlit
+# 🧵 Yarn Count Calculator
+
+A simple and professional web-based **Yarn Count Calculator** developed using Python and Streamlit.
+
+The application calculates yarn count using:
+
+- Weight in pounds (lbs)
+- Length in yards
+- Length in hanks
+- Yarn Count (Ne)
+- Weight per hank
+
+## 📌 Formula
+
+For English Cotton Count (Ne):
+
+Yarn Count (Ne) = Length in yards ÷ (Weight in lbs × 840)
+
+### Hank Conversion
+
+1 Hank = 840 yards
+
+Therefore:
+
+Hanks = Length in yards ÷ 840
+
+## 🚀 Features
+
+- Calculate Yarn Count (Ne)
+- Calculate length in hanks
+- Calculate weight per hank
+- Convert yards into hanks
+- Simple and user-friendly interface
+- Responsive Streamlit layout
+- Instant calculations
+- No database required
+
+## 🛠️ Technologies Used
+
+- Python
+- Streamlit
+
+## 📂 Project Structure
+
+```text
+yarn-count-calculator/
+│
+├── app.py
+├── requirements.txt
+└── README.md
+
+st.caption("🧵 Yarn Count Calculator | Built with Python & Streamlit")
